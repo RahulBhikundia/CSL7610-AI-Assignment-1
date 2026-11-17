@@ -1,0 +1,579 @@
+id,context,statement,label,context_logic,statement_logic
+P001,"Odra is shiny. Odra is swift. Yarra is round. Brann visits Yarra. If someone is cold and they are swift then they are brave. All cold, loud things are green. Sleepy things are green. If someone is swift then they are green. Swift things are cold. If someone is swift then they help Yarra.",Odra is brave.,TRUE,"(""Odra"" ""is"" ""shiny"" ""+"")
+(""Odra"" ""is"" ""swift"" ""+"")
+(""Yarra"" ""is"" ""round"" ""+"")
+(""Brann"" ""visits"" ""Yarra"" ""+"")
+((""someone"" ""is"" ""cold"" ""+"") (""someone"" ""is"" ""swift"" ""+"")) -> (""someone"" ""is"" ""brave"" ""+"")
+((""something"" ""is"" ""cold"" ""+"") (""something"" ""is"" ""loud"" ""+"")) -> (""something"" ""is"" ""green"" ""+"")
+((""something"" ""is"" ""sleepy"" ""+"")) -> (""something"" ""is"" ""green"" ""+"")
+((""someone"" ""is"" ""swift"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")
+((""something"" ""is"" ""swift"" ""+"")) -> (""something"" ""is"" ""cold"" ""+"")
+((""someone"" ""is"" ""swift"" ""+"")) -> (""someone"" ""helps"" ""Yarra"" ""+"")","(""Odra"" ""is"" ""brave"" ""+"")"
+P002,Mavi is brave. Mavi is kind. Quessa is cold. Teklo is brave. Mavi follows Quessa. Mavi follows Teklo. If someone is green and they are gentle then they are shiny. If someone is cold and they are kind then they are green. If someone is kind then they are shiny. If someone is shiny then they are cold.,Mavi is green.,TRUE,"(""Mavi"" ""is"" ""brave"" ""+"")
+(""Mavi"" ""is"" ""kind"" ""+"")
+(""Quessa"" ""is"" ""cold"" ""+"")
+(""Teklo"" ""is"" ""brave"" ""+"")
+(""Mavi"" ""follows"" ""Quessa"" ""+"")
+(""Mavi"" ""follows"" ""Teklo"" ""+"")
+((""someone"" ""is"" ""green"" ""+"") (""someone"" ""is"" ""gentle"" ""+"")) -> (""someone"" ""is"" ""shiny"" ""+"")
+((""someone"" ""is"" ""cold"" ""+"") (""someone"" ""is"" ""kind"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")
+((""someone"" ""is"" ""kind"" ""+"")) -> (""someone"" ""is"" ""shiny"" ""+"")
+((""someone"" ""is"" ""shiny"" ""+"")) -> (""someone"" ""is"" ""cold"" ""+"")","(""Mavi"" ""is"" ""green"" ""+"")"
+P003,"We know that Vapo causes Toln, Drav causes Toln, Toln causes Jask, Toln causes Mora, Toln causes Huld, and Mora causes Fesh. Nothing else causes any of these events. We observed Drav. Vapo did not occur.",Would Fesh occur if not Jask instead of Jask?,TRUE,"Toln = Vapo OR Drav
+Jask = Toln
+Mora = Toln
+Huld = Toln
+Fesh = Mora
+Evidence: Drav = 1, Vapo = 0",Fesh_{Jask=0} = 1 ?
+P004,"We know that Ziklo causes Fesh, Toln causes Fesh, Mora causes Jask, Mora and Fesh together cause Kelp, Fesh and Kelp together cause Wube, Jask causes Vapo, and Kelp and Wube together cause Prell. Nothing else causes any of these events. We observed Ziklo and Toln. Mora did not occur.",Would Prell occur if not Ziklo and not Toln instead of Ziklo and Toln?,FALSE,"Fesh = Ziklo OR Toln
+Jask = Mora
+Kelp = Mora AND Fesh
+Wube = Fesh AND Kelp
+Vapo = Jask
+Prell = Kelp AND Wube
+Evidence: Ziklo = 1, Toln = 1, Mora = 0","Prell_{Ziklo=0, Toln=0} = 1 ?"
+P005,Every robot built by Kestrel Labs runs on solar power or on batteries. Robots that run on solar power cannot operate at night. Unit Vex was built by Kestrel Labs. Unit Vex operates at night.,Unit Vex runs on solar power or operates at night.,TRUE,"∀x (Robot(x) ∧ BuiltBy(x, kestrelLabs) → SolarPowered(x) ∨ BatteryPowered(x))
+∀x (Robot(x) ∧ SolarPowered(x) → ¬OperateAtNight(x))
+Robot(unitVex) ∧ BuiltBy(unitVex, kestrelLabs)
+OperateAtNight(unitVex)",SolarPowered(unitVex) ∨ OperateAtNight(unitVex)
+P006,Every robot built by Kestrel Labs runs on solar power or on batteries. Robots that run on solar power cannot operate at night. Unit Vex was built by Kestrel Labs. Unit Vex operates at night.,Unit Vex runs on batteries.,TRUE,"∀x (Robot(x) ∧ BuiltBy(x, kestrelLabs) → SolarPowered(x) ∨ BatteryPowered(x))
+∀x (Robot(x) ∧ SolarPowered(x) → ¬OperateAtNight(x))
+Robot(unitVex) ∧ BuiltBy(unitVex, kestrelLabs)
+OperateAtNight(unitVex)",BatteryPowered(unitVex)
+P007,"If a plant in the Hessel greenhouse is a fern, then it needs shade. Plant R12 is in the Hessel greenhouse and does not need shade. Plant R13 is a fern in the Hessel greenhouse.",Plant R12 is a fern.,FALSE,"∀x (Plant(x) ∧ In(x, hesselGreenhouse) ∧ Fern(x) → NeedShade(x))
+Plant(r12) ∧ In(r12, hesselGreenhouse) ∧ ¬NeedShade(r12)
+Plant(r13) ∧ Fern(r13) ∧ In(r13, hesselGreenhouse)",Fern(r12)
+P008,All paintings in the Varlo gallery are oil paintings. All oil paintings are fragile. No fragile item is allowed outside the vault. Dusk over Teyra is a painting in the Varlo gallery. Morning Bell is a bronze sculpture.,Morning Bell is fragile.,FALSE,"∀x (Painting(x) ∧ In(x, varloGallery) → OilPainting(x))
+∀x (OilPainting(x) → Fragile(x))
+∀x (Fragile(x) → ¬AllowedOutside(x, vault))
+Painting(duskOverTeyra) ∧ In(duskOverTeyra, varloGallery)
+BronzeSculpture(morningBell)",Fragile(morningBell)
+P009,Every member of the Quorvan choir sings either soprano or alto. Anyone who sings soprano rehearses on Tuesdays. Lenka is a member of the Quorvan choir. Lenka does not sing alto. Orin rehearses on Tuesdays.,Lenka rehearses on Tuesdays.,TRUE,"∀x (MemberOf(x, quorvanChoir) → SingSoprano(x) ∨ SingAlto(x))
+∀x (SingSoprano(x) → RehearseOn(x, tuesday))
+MemberOf(lenka, quorvanChoir)
+¬SingAlto(lenka)
+RehearseOn(orin, tuesday)","RehearseOn(lenka, tuesday)"
+P010,"We know that Mora causes Vapo, Mora causes Wube, Toln causes Wube, Wube causes Gorm, Gorm causes Lerk, Gorm causes Drav, Lerk causes Drav, Drav causes Sorb, Gorm causes Sorb, and Lerk causes Nix. Nothing else causes any of these events. We observed Toln and Mora.",Would Nix occur if not Vapo instead of Vapo?,TRUE,"Vapo = Mora
+Wube = Mora OR Toln
+Gorm = Wube
+Lerk = Gorm
+Drav = Gorm OR Lerk
+Sorb = Drav OR Gorm
+Nix = Lerk
+Evidence: Toln = 1, Mora = 1",Nix_{Vapo=0} = 1 ?
+P011,"We know that Lerk causes Kelp, Wube causes Kelp, Wube causes Vapo, and Kelp causes Sorb. Nothing else causes any of these events. We observed Lerk. Wube did not occur.",Would Sorb occur if not Kelp instead of Kelp?,FALSE,"Kelp = Lerk OR Wube
+Vapo = Wube
+Sorb = Kelp
+Evidence: Lerk = 1, Wube = 0",Sorb_{Kelp=0} = 1 ?
+P012,Brann is green. The otter is green. The otter is loud. Brann follows the otter. If someone is loud then they are sleepy. If someone is brave and they are green then they are tall. If the otter is sleepy then the otter is kind. Brave things are sleepy. Brave things are kind.,Brann is not kind.,TRUE,"(""Brann"" ""is"" ""green"" ""+"")
+(""the otter"" ""is"" ""green"" ""+"")
+(""the otter"" ""is"" ""loud"" ""+"")
+(""Brann"" ""follows"" ""the otter"" ""+"")
+((""someone"" ""is"" ""loud"" ""+"")) -> (""someone"" ""is"" ""sleepy"" ""+"")
+((""someone"" ""is"" ""brave"" ""+"") (""someone"" ""is"" ""green"" ""+"")) -> (""someone"" ""is"" ""tall"" ""+"")
+((""the otter"" ""is"" ""sleepy"" ""+"")) -> (""the otter"" ""is"" ""kind"" ""+"")
+((""something"" ""is"" ""brave"" ""+"")) -> (""something"" ""is"" ""sleepy"" ""+"")
+((""something"" ""is"" ""brave"" ""+"")) -> (""something"" ""is"" ""kind"" ""+"")","(""Brann"" ""is"" ""kind"" ""-"")"
+P013,"If a drone has a certified pilot, then it can fly over the city. Every drone owned by Brisk Logistics has a certified pilot. Drone K-7 cannot fly over the city. Drone M-2 is owned by Brisk Logistics.",Drone K-7 is owned by Brisk Logistics.,FALSE,"∀x (Drone(x) ∧ HasCertifiedPilot(x) → CanFlyOver(x, city))
+∀x (Drone(x) ∧ OwnedBy(x, briskLogistics) → HasCertifiedPilot(x))
+Drone(k7) ∧ ¬CanFlyOver(k7, city)
+Drone(m2) ∧ OwnedBy(m2, briskLogistics)","OwnedBy(k7, briskLogistics)"
+P014,All paintings in the Varlo gallery are oil paintings. All oil paintings are fragile. No fragile item is allowed outside the vault. Dusk over Teyra is a painting in the Varlo gallery. Morning Bell is a bronze sculpture.,Dusk over Teyra is fragile.,TRUE,"∀x (Painting(x) ∧ In(x, varloGallery) → OilPainting(x))
+∀x (OilPainting(x) → Fragile(x))
+∀x (Fragile(x) → ¬AllowedOutside(x, vault))
+Painting(duskOverTeyra) ∧ In(duskOverTeyra, varloGallery)
+BronzeSculpture(morningBell)",Fragile(duskOverTeyra)
+P015,"We know that Vapo and Sorb together cause Mora, Mora causes Wube, Vapo causes Wube, Wube causes Lerk, Wube causes Kelp, Mora causes Kelp, and Wube causes Fesh. Nothing else causes any of these events. We observed Sorb and Vapo.",Would Fesh occur if not Sorb instead of Sorb?,TRUE,"Mora = Vapo AND Sorb
+Wube = Mora OR Vapo
+Lerk = Wube
+Kelp = Wube OR Mora
+Fesh = Wube
+Evidence: Sorb = 1, Vapo = 1",Fesh_{Sorb=0} = 1 ?
+P016,Mavi is cold. The walrus is brave. The heron follows Mavi. If someone is brave then they are round. If someone is round then they are brave. If someone is cold then they are round.,Mavi is round.,TRUE,"(""Mavi"" ""is"" ""cold"" ""+"")
+(""the walrus"" ""is"" ""brave"" ""+"")
+(""the heron"" ""follows"" ""Mavi"" ""+"")
+((""someone"" ""is"" ""brave"" ""+"")) -> (""someone"" ""is"" ""round"" ""+"")
+((""someone"" ""is"" ""round"" ""+"")) -> (""someone"" ""is"" ""brave"" ""+"")
+((""someone"" ""is"" ""cold"" ""+"")) -> (""someone"" ""is"" ""round"" ""+"")","(""Mavi"" ""is"" ""round"" ""+"")"
+P017,The heron is cold. The heron is green. The heron is young. The lynx is tall. Sleepy things are calm. If someone helps the lynx then they are green. If someone is cold then they are sleepy. If someone is green then they help the lynx.,The lynx is sleepy.,FALSE,"(""the heron"" ""is"" ""cold"" ""+"")
+(""the heron"" ""is"" ""green"" ""+"")
+(""the heron"" ""is"" ""young"" ""+"")
+(""the lynx"" ""is"" ""tall"" ""+"")
+((""something"" ""is"" ""sleepy"" ""+"")) -> (""something"" ""is"" ""calm"" ""+"")
+((""someone"" ""helps"" ""the lynx"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")
+((""someone"" ""is"" ""cold"" ""+"")) -> (""someone"" ""is"" ""sleepy"" ""+"")
+((""someone"" ""is"" ""green"" ""+"")) -> (""someone"" ""helps"" ""the lynx"" ""+"")","(""the lynx"" ""is"" ""sleepy"" ""+"")"
+P018,Teklo is calm. Teklo is cold. Yarra is shiny. Shiny things are calm. If someone is calm then they are cold. If someone is kind then they are quiet. If someone is calm and they are cold then they are young. If someone is quiet and they are calm then they are young.,Yarra is not quiet.,TRUE,"(""Teklo"" ""is"" ""calm"" ""+"")
+(""Teklo"" ""is"" ""cold"" ""+"")
+(""Yarra"" ""is"" ""shiny"" ""+"")
+((""something"" ""is"" ""shiny"" ""+"")) -> (""something"" ""is"" ""calm"" ""+"")
+((""someone"" ""is"" ""calm"" ""+"")) -> (""someone"" ""is"" ""cold"" ""+"")
+((""someone"" ""is"" ""kind"" ""+"")) -> (""someone"" ""is"" ""quiet"" ""+"")
+((""someone"" ""is"" ""calm"" ""+"") (""someone"" ""is"" ""cold"" ""+"")) -> (""someone"" ""is"" ""young"" ""+"")
+((""someone"" ""is"" ""quiet"" ""+"") (""someone"" ""is"" ""calm"" ""+"")) -> (""someone"" ""is"" ""young"" ""+"")","(""Yarra"" ""is"" ""quiet"" ""-"")"
+P019,"The otter is cold. The otter is young. The otter admires the walrus. The otter follows the walrus. The otter helps the walrus. If someone is kind then they are cold. If someone is proud and they are tall then they visit the walrus. All green, proud things are round. If someone is young then they are green. If someone is kind and they are cold then they are tall.",The walrus is tall.,FALSE,"(""the otter"" ""is"" ""cold"" ""+"")
+(""the otter"" ""is"" ""young"" ""+"")
+(""the otter"" ""admires"" ""the walrus"" ""+"")
+(""the otter"" ""follows"" ""the walrus"" ""+"")
+(""the otter"" ""helps"" ""the walrus"" ""+"")
+((""someone"" ""is"" ""kind"" ""+"")) -> (""someone"" ""is"" ""cold"" ""+"")
+((""someone"" ""is"" ""proud"" ""+"") (""someone"" ""is"" ""tall"" ""+"")) -> (""someone"" ""visits"" ""the walrus"" ""+"")
+((""something"" ""is"" ""green"" ""+"") (""something"" ""is"" ""proud"" ""+"")) -> (""something"" ""is"" ""round"" ""+"")
+((""someone"" ""is"" ""young"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")
+((""someone"" ""is"" ""kind"" ""+"") (""someone"" ""is"" ""cold"" ""+"")) -> (""someone"" ""is"" ""tall"" ""+"")","(""the walrus"" ""is"" ""tall"" ""+"")"
+P020,The badger is calm. The otter is gentle. The otter is loud. The badger admires the otter. If the otter is loud then the otter is tall. If the otter is green then the otter is tall. If someone is round and they are gentle then they are green. Calm things are round. Tall things are calm.,The otter is not green.,FALSE,"(""the badger"" ""is"" ""calm"" ""+"")
+(""the otter"" ""is"" ""gentle"" ""+"")
+(""the otter"" ""is"" ""loud"" ""+"")
+(""the badger"" ""admires"" ""the otter"" ""+"")
+((""the otter"" ""is"" ""loud"" ""+"")) -> (""the otter"" ""is"" ""tall"" ""+"")
+((""the otter"" ""is"" ""green"" ""+"")) -> (""the otter"" ""is"" ""tall"" ""+"")
+((""someone"" ""is"" ""round"" ""+"") (""someone"" ""is"" ""gentle"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")
+((""something"" ""is"" ""calm"" ""+"")) -> (""something"" ""is"" ""round"" ""+"")
+((""something"" ""is"" ""tall"" ""+"")) -> (""something"" ""is"" ""calm"" ""+"")","(""the otter"" ""is"" ""green"" ""-"")"
+P021,"We know that Ziklo causes Kelp, Wube causes Kelp, Wube causes Huld, Quor causes Gorm, Kelp causes Vapo, and Gorm causes Vapo. Nothing else causes any of these events. We observed Ziklo and Wube and Quor.",Would Vapo occur if not Ziklo and not Wube instead of Ziklo and Wube?,TRUE,"Kelp = Ziklo OR Wube
+Huld = Wube
+Gorm = Quor
+Vapo = Kelp OR Gorm
+Evidence: Ziklo = 1, Wube = 1, Quor = 1","Vapo_{Ziklo=0, Wube=0} = 1 ?"
+P022,All students who passed the Orvix exam received a silver badge. Everyone who received a silver badge was invited to the spring dinner. Tavi received a silver badge.,Tavi passed the Orvix exam.,FALSE,"∀x (Student(x) ∧ Passed(x, orvixExam) → Received(x, silverBadge))
+∀x (Received(x, silverBadge) → InvitedTo(x, springDinner))
+Received(tavi, silverBadge)","Passed(tavi, orvixExam)"
+P023,Yarra is loud. Yarra is young. The lynx is loud. Young things are proud. If someone is cold then they help the lynx. If someone is kind then they help the lynx. If someone is clever and they are loud then they admire Yarra. If someone is young and they are cold then they are gentle. If someone is young then they are quiet.,Yarra is gentle.,FALSE,"(""Yarra"" ""is"" ""loud"" ""+"")
+(""Yarra"" ""is"" ""young"" ""+"")
+(""the lynx"" ""is"" ""loud"" ""+"")
+((""something"" ""is"" ""young"" ""+"")) -> (""something"" ""is"" ""proud"" ""+"")
+((""someone"" ""is"" ""cold"" ""+"")) -> (""someone"" ""helps"" ""the lynx"" ""+"")
+((""someone"" ""is"" ""kind"" ""+"")) -> (""someone"" ""helps"" ""the lynx"" ""+"")
+((""someone"" ""is"" ""clever"" ""+"") (""someone"" ""is"" ""loud"" ""+"")) -> (""someone"" ""admires"" ""Yarra"" ""+"")
+((""someone"" ""is"" ""young"" ""+"") (""someone"" ""is"" ""cold"" ""+"")) -> (""someone"" ""is"" ""gentle"" ""+"")
+((""someone"" ""is"" ""young"" ""+"")) -> (""someone"" ""is"" ""quiet"" ""+"")","(""Yarra"" ""is"" ""gentle"" ""+"")"
+P024,"If a drone has a certified pilot, then it can fly over the city. Every drone owned by Brisk Logistics has a certified pilot. Drone K-7 cannot fly over the city. Drone M-2 is owned by Brisk Logistics.",Drone M-2 can fly over the city.,TRUE,"∀x (Drone(x) ∧ HasCertifiedPilot(x) → CanFlyOver(x, city))
+∀x (Drone(x) ∧ OwnedBy(x, briskLogistics) → HasCertifiedPilot(x))
+Drone(k7) ∧ ¬CanFlyOver(k7, city)
+Drone(m2) ∧ OwnedBy(m2, briskLogistics)","CanFlyOver(m2, city)"
+P025,Ilvy is brave. Ilvy is shiny. The lynx is brave. The lynx is green. If someone is green then they help the lynx. If someone is brave then they are proud. Shiny things are tall. If someone helps the lynx then they are shiny. If someone is brave and they are tall then they are green. If someone helps Ilvy then they are quiet.,The lynx is tall.,TRUE,"(""Ilvy"" ""is"" ""brave"" ""+"")
+(""Ilvy"" ""is"" ""shiny"" ""+"")
+(""the lynx"" ""is"" ""brave"" ""+"")
+(""the lynx"" ""is"" ""green"" ""+"")
+((""someone"" ""is"" ""green"" ""+"")) -> (""someone"" ""helps"" ""the lynx"" ""+"")
+((""someone"" ""is"" ""brave"" ""+"")) -> (""someone"" ""is"" ""proud"" ""+"")
+((""something"" ""is"" ""shiny"" ""+"")) -> (""something"" ""is"" ""tall"" ""+"")
+((""someone"" ""helps"" ""the lynx"" ""+"")) -> (""someone"" ""is"" ""shiny"" ""+"")
+((""someone"" ""is"" ""brave"" ""+"") (""someone"" ""is"" ""tall"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")
+((""someone"" ""helps"" ""Ilvy"" ""+"")) -> (""someone"" ""is"" ""quiet"" ""+"")","(""the lynx"" ""is"" ""tall"" ""+"")"
+P026,Pelo is both a hiker and a photographer. Every photographer owns a camera. Anyone who owns a camera and is a hiker carries a tripod.,Pelo carries a tripod.,TRUE,"Hiker(pelo) ∧ Photographer(pelo)
+∀x (Photographer(x) → OwnCamera(x))
+∀x (OwnCamera(x) ∧ Hiker(x) → CarryTripod(x))",CarryTripod(pelo)
+P027,The gecko is calm. The lynx is brave. The lynx is calm. Mavi visits the lynx. If someone is brave then they are kind. If someone is kind then they are quiet. Quiet things are shiny.,Mavi is not kind.,TRUE,"(""the gecko"" ""is"" ""calm"" ""+"")
+(""the lynx"" ""is"" ""brave"" ""+"")
+(""the lynx"" ""is"" ""calm"" ""+"")
+(""Mavi"" ""visits"" ""the lynx"" ""+"")
+((""someone"" ""is"" ""brave"" ""+"")) -> (""someone"" ""is"" ""kind"" ""+"")
+((""someone"" ""is"" ""kind"" ""+"")) -> (""someone"" ""is"" ""quiet"" ""+"")
+((""something"" ""is"" ""quiet"" ""+"")) -> (""something"" ""is"" ""shiny"" ""+"")","(""Mavi"" ""is"" ""kind"" ""-"")"
+P028,All students who passed the Orvix exam received a silver badge. Everyone who received a silver badge was invited to the spring dinner. Tavi received a silver badge.,Tavi was invited to the spring dinner.,TRUE,"∀x (Student(x) ∧ Passed(x, orvixExam) → Received(x, silverBadge))
+∀x (Received(x, silverBadge) → InvitedTo(x, springDinner))
+Received(tavi, silverBadge)","InvitedTo(tavi, springDinner)"
+P029,Yarra is swift. The otter is swift. The otter is young. Yarra helps the otter. Yarra visits the otter. The otter helps Yarra. If someone is young then they follow the otter. If someone follows Yarra then they are green. If someone is quiet then they visit Yarra. If someone is round then they visit the otter. If someone is young and they are clever then they are green.,Yarra visits the otter.,TRUE,"(""Yarra"" ""is"" ""swift"" ""+"")
+(""the otter"" ""is"" ""swift"" ""+"")
+(""the otter"" ""is"" ""young"" ""+"")
+(""Yarra"" ""helps"" ""the otter"" ""+"")
+(""Yarra"" ""visits"" ""the otter"" ""+"")
+(""the otter"" ""helps"" ""Yarra"" ""+"")
+((""someone"" ""is"" ""young"" ""+"")) -> (""someone"" ""follows"" ""the otter"" ""+"")
+((""someone"" ""follows"" ""Yarra"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")
+((""someone"" ""is"" ""quiet"" ""+"")) -> (""someone"" ""visits"" ""Yarra"" ""+"")
+((""someone"" ""is"" ""round"" ""+"")) -> (""someone"" ""visits"" ""the otter"" ""+"")
+((""someone"" ""is"" ""young"" ""+"") (""someone"" ""is"" ""clever"" ""+"")) -> (""someone"" ""is"" ""green"" ""+"")","(""Yarra"" ""visits"" ""the otter"" ""+"")"
+P030,Pelo is both a hiker and a photographer. Every photographer owns a camera. Anyone who owns a camera and is a hiker carries a tripod.,Pelo does not own a camera.,FALSE,"Hiker(pelo) ∧ Photographer(pelo)
+∀x (Photographer(x) → OwnCamera(x))
+∀x (OwnCamera(x) ∧ Hiker(x) → CarryTripod(x))",¬OwnCamera(pelo)
+P031,Mavi is quiet. Mavi is round. The otter is quiet. Mavi admires the otter. Cold things are brave. If the otter is quiet then the otter is brave. Brave things are quiet. If someone admires Mavi then they are sleepy. If someone follows the otter then they are cold.,Mavi is not sleepy.,TRUE,"(""Mavi"" ""is"" ""quiet"" ""+"")
+(""Mavi"" ""is"" ""round"" ""+"")
+(""the otter"" ""is"" ""quiet"" ""+"")
+(""Mavi"" ""admires"" ""the otter"" ""+"")
+((""something"" ""is"" ""cold"" ""+"")) -> (""something"" ""is"" ""brave"" ""+"")
+((""the otter"" ""is"" ""quiet"" ""+"")) -> (""the otter"" ""is"" ""brave"" ""+"")
+((""something"" ""is"" ""brave"" ""+"")) -> (""something"" ""is"" ""quiet"" ""+"")
+((""someone"" ""admires"" ""Mavi"" ""+"")) -> (""someone"" ""is"" ""sleepy"" ""+"")
+((""someone"" ""follows"" ""the otter"" ""+"")) -> (""someone"" ""is"" ""cold"" ""+"")","(""Mavi"" ""is"" ""sleepy"" ""-"")"
+P032,Pell is kind. Yarra is sleepy. Pell admires Mavi. Yarra helps Pell. If someone is kind then they are clever. If someone is proud then they admire Pell. If someone is clever then they are proud.,Mavi is proud.,FALSE,"(""Pell"" ""is"" ""kind"" ""+"")
+(""Yarra"" ""is"" ""sleepy"" ""+"")
+(""Pell"" ""admires"" ""Mavi"" ""+"")
+(""Yarra"" ""helps"" ""Pell"" ""+"")
+((""someone"" ""is"" ""kind"" ""+"")) -> (""someone"" ""is"" ""clever"" ""+"")
+((""someone"" ""is"" ""proud"" ""+"")) -> (""someone"" ""admires"" ""Pell"" ""+"")
+((""someone"" ""is"" ""clever"" ""+"")) -> (""someone"" ""is"" ""proud"" ""+"")","(""Mavi"" ""is"" ""proud"" ""+"")"
+P033,Brann is proud. The badger is tall. The badger is young. If someone is brave then they are quiet. Quiet things are loud. Young things are clever. If someone is clever then they help Brann. If someone is young and they are quiet then they are proud.,The badger does not help Brann.,FALSE,"(""Brann"" ""is"" ""proud"" ""+"")
+(""the badger"" ""is"" ""tall"" ""+"")
+(""the badger"" ""is"" ""young"" ""+"")
+((""someone"" ""is"" ""brave"" ""+"")) -> (""someone"" ""is"" ""quiet"" ""+"")
+((""something"" ""is"" ""quiet"" ""+"")) -> (""something"" ""is"" ""loud"" ""+"")
+((""something"" ""is"" ""young"" ""+"")) -> (""something"" ""is"" ""clever"" ""+"")
+((""someone"" ""is"" ""clever"" ""+"")) -> (""someone"" ""helps"" ""Brann"" ""+"")
+((""someone"" ""is"" ""young"" ""+"") (""someone"" ""is"" ""quiet"" ""+"")) -> (""someone"" ""is"" ""proud"" ""+"")","(""the badger"" ""helps"" ""Brann"" ""-"")"
+P034,Odra is cold. Odra is gentle. The lynx is gentle. Odra helps the lynx. If someone helps the lynx then they are sleepy. If the lynx is gentle then the lynx is young. Young things are cold. If someone is cold and they are young then they admire the lynx.,Odra is young.,FALSE,"(""Odra"" ""is"" ""cold"" ""+"")
+(""Odra"" ""is"" ""gentle"" ""+"")
+(""the lynx"" ""is"" ""gentle"" ""+"")
+(""Odra"" ""helps"" ""the lynx"" ""+"")
+((""someone"" ""helps"" ""the lynx"" ""+"")) -> (""someone"" ""is"" ""sleepy"" ""+"")
+((""the lynx"" ""is"" ""gentle"" ""+"")) -> (""the lynx"" ""is"" ""young"" ""+"")
+((""something"" ""is"" ""young"" ""+"")) -> (""something"" ""is"" ""cold"" ""+"")
+((""someone"" ""is"" ""cold"" ""+"") (""someone"" ""is"" ""young"" ""+"")) -> (""someone"" ""admires"" ""the lynx"" ""+"")","(""Odra"" ""is"" ""young"" ""+"")"
+P035,"We know that Fesh and Vapo together cause Huld, Huld causes Ziklo, Ziklo causes Mora, Huld causes Blim, Mora causes Blim, Mora causes Gorm, Blim causes Gorm, and Mora and Blim together cause Quor. Nothing else causes any of these events. We observed that Fesh and Vapo did not occur.",Would Quor occur if Fesh instead of not Fesh?,FALSE,"Huld = Fesh AND Vapo
+Ziklo = Huld
+Mora = Ziklo
+Blim = Huld OR Mora
+Gorm = Mora OR Blim
+Quor = Mora AND Blim
+Evidence: Fesh = 0, Vapo = 0",Quor_{Fesh=1} = 1 ?
+P036,"We know that Blim causes Sorb, Sorb causes Huld, Blim causes Lerk, Sorb and Huld together cause Drav, Huld and Drav together cause Ziklo, Ziklo causes Mora, and Drav and Ziklo together cause Gorm. Nothing else causes any of these events. We observed Blim.",Would Gorm occur if not Blim instead of Blim?,FALSE,"Sorb = Blim
+Huld = Sorb
+Lerk = Blim
+Drav = Sorb AND Huld
+Ziklo = Huld AND Drav
+Mora = Ziklo
+Gorm = Drav AND Ziklo
+Evidence: Blim = 1",Gorm_{Blim=0} = 1 ?
+P037,"Mavi is calm. Mavi is shiny. Yarra is quiet. The gecko is cold. Yarra admires Mavi. The gecko follows Mavi. Quiet things are tall. If someone is calm then they help Yarra. All quiet, brave things are kind. If someone helps Yarra then they are brave. If someone visits the gecko then they are brave. Brave things are tall.",Mavi is not brave.,FALSE,"(""Mavi"" ""is"" ""calm"" ""+"")
+(""Mavi"" ""is"" ""shiny"" ""+"")
+(""Yarra"" ""is"" ""quiet"" ""+"")
+(""the gecko"" ""is"" ""cold"" ""+"")
+(""Yarra"" ""admires"" ""Mavi"" ""+"")
+(""the gecko"" ""follows"" ""Mavi"" ""+"")
+((""something"" ""is"" ""quiet"" ""+"")) -> (""something"" ""is"" ""tall"" ""+"")
+((""someone"" ""is"" ""calm"" ""+"")) -> (""someone"" ""helps"" ""Yarra"" ""+"")
+((""something"" ""is"" ""quiet"" ""+"") (""something"" ""is"" ""brave"" ""+"")) -> (""something"" ""is"" ""kind"" ""+"")
+((""someone"" ""helps"" ""Yarra"" ""+"")) -> (""someone"" ""is"" ""brave"" ""+"")
+((""someone"" ""visits"" ""the gecko"" ""+"")) -> (""someone"" ""is"" ""brave"" ""+"")
+((""something"" ""is"" ""brave"" ""+"")) -> (""something"" ""is"" ""tall"" ""+"")","(""Mavi"" ""is"" ""brave"" ""-"")"
+P038,"We know that Lerk causes Fesh, Kelp causes Fesh, Lerk and Kelp together cause Toln, Fesh causes Wube, Toln causes Wube, and Fesh causes Prell. Nothing else causes any of these events. We observed Kelp. Lerk did not occur.",Would Prell occur if Lerk instead of not Lerk?,TRUE,"Fesh = Lerk OR Kelp
+Toln = Lerk AND Kelp
+Wube = Fesh OR Toln
+Prell = Fesh
+Evidence: Kelp = 1, Lerk = 0",Prell_{Lerk=1} = 1 ?
+P039,"We know that Mora causes Nix, Nix causes Kelp, Nix causes Sorb, Nix causes Blim, Blim causes Ziklo, and Sorb causes Gorm. Nothing else causes any of these events. We observed Mora.",Would Gorm occur if not Mora instead of Mora?,FALSE,"Nix = Mora
+Kelp = Nix
+Sorb = Nix
+Blim = Nix
+Ziklo = Blim
+Gorm = Sorb
+Evidence: Mora = 1",Gorm_{Mora=0} = 1 ?
+P040,"Every resident of Nalvik works either at the harbor or at the mill, but not both. Everyone who works at the mill wakes up before dawn. Sora is a resident of Nalvik who works at the harbor.",Sora wakes up before dawn.,FALSE,"∀x (ResidentOf(x, nalvik) → WorkAt(x, harbor) ⊕ WorkAt(x, mill))
+∀x (WorkAt(x, mill) → WakeUpBeforeDawn(x))
+ResidentOf(sora, nalvik) ∧ WorkAt(sora, harbor)",WakeUpBeforeDawn(sora)
+P041,Kimo is calm. Odra is proud. Odra is young. Kimo admires Brann. If someone is proud then they are calm. Proud things are loud. Quiet things are tall. Clever things are proud. If Kimo is loud then Kimo is clever.,Odra is not loud.,FALSE,"(""Kimo"" ""is"" ""calm"" ""+"")
+(""Odra"" ""is"" ""proud"" ""+"")
+(""Odra"" ""is"" ""young"" ""+"")
+(""Kimo"" ""admires"" ""Brann"" ""+"")
+((""someone"" ""is"" ""proud"" ""+"")) -> (""someone"" ""is"" ""calm"" ""+"")
+((""something"" ""is"" ""proud"" ""+"")) -> (""something"" ""is"" ""loud"" ""+"")
+((""something"" ""is"" ""quiet"" ""+"")) -> (""something"" ""is"" ""tall"" ""+"")
+((""something"" ""is"" ""clever"" ""+"")) -> (""something"" ""is"" ""proud"" ""+"")
+((""Kimo"" ""is"" ""loud"" ""+"")) -> (""Kimo"" ""is"" ""clever"" ""+"")","(""Odra"" ""is"" ""loud"" ""-"")"
+P042,Every member of the Quorvan choir sings either soprano or alto. Anyone who sings soprano rehearses on Tuesdays. Lenka is a member of the Quorvan choir. Lenka does not sing alto. Orin rehearses on Tuesdays.,Orin sings soprano.,FALSE,"∀x (MemberOf(x, quorvanChoir) → SingSoprano(x) ∨ SingAlto(x))
+∀x (SingSoprano(x) → RehearseOn(x, tuesday))
+MemberOf(lenka, quorvanChoir)
+¬SingAlto(lenka)
+RehearseOn(orin, tuesday)",SingSoprano(orin)
+P043,"If a plant in the Hessel greenhouse is a fern, then it needs shade. Plant R12 is in the Hessel greenhouse and does not need shade. Plant R13 is a fern in the Hessel greenhouse.",Plant R13 needs shade.,TRUE,"∀x (Plant(x) ∧ In(x, hesselGreenhouse) ∧ Fern(x) → NeedShade(x))
+Plant(r12) ∧ In(r12, hesselGreenhouse) ∧ ¬NeedShade(r12)
+Plant(r13) ∧ Fern(r13) ∧ In(r13, hesselGreenhouse)",NeedShade(r13)
+P044,"Every resident of Nalvik works either at the harbor or at the mill, but not both. Everyone who works at the mill wakes up before dawn. Sora is a resident of Nalvik who works at the harbor.",Sora works at the mill.,FALSE,"∀x (ResidentOf(x, nalvik) → WorkAt(x, harbor) ⊕ WorkAt(x, mill))
+∀x (WorkAt(x, mill) → WakeUpBeforeDawn(x))
+ResidentOf(sora, nalvik) ∧ WorkAt(sora, harbor)","WorkAt(sora, mill)"
+P045,"We know that Toln causes Wube, Huld causes Sorb, Toln causes Jask, Jask causes Fesh, and Sorb causes Fesh. Nothing else causes any of these events. We observed Toln. Huld did not occur.",Would Fesh occur if Huld instead of not Huld?,TRUE,"Wube = Toln
+Sorb = Huld
+Jask = Toln
+Fesh = Jask OR Sorb
+Evidence: Toln = 1, Huld = 0",Fesh_{Huld=1} = 1 ?
+P046,"Teklo is green. Quessa admires Teklo. Quessa visits Teklo. Teklo admires Quessa. All cold, green things are quiet. If someone visits Teklo then they are tall. If someone is quiet then they are young. All quiet, young things are calm. If someone is green then they are cold.",Quessa is not calm.,TRUE,"(""Teklo"" ""is"" ""green"" ""+"")
+(""Quessa"" ""admires"" ""Teklo"" ""+"")
+(""Quessa"" ""visits"" ""Teklo"" ""+"")
+(""Teklo"" ""admires"" ""Quessa"" ""+"")
+((""something"" ""is"" ""cold"" ""+"") (""something"" ""is"" ""green"" ""+"")) -> (""something"" ""is"" ""quiet"" ""+"")
+((""someone"" ""visits"" ""Teklo"" ""+"")) -> (""someone"" ""is"" ""tall"" ""+"")
+((""someone"" ""is"" ""quiet"" ""+"")) -> (""someone"" ""is"" ""young"" ""+"")
+((""something"" ""is"" ""quiet"" ""+"") (""something"" ""is"" ""young"" ""+"")) -> (""something"" ""is"" ""calm"" ""+"")
+((""someone"" ""is"" ""green"" ""+"")) -> (""someone"" ""is"" ""cold"" ""+"")","(""Quessa"" ""is"" ""calm"" ""-"")"
+P047,All paintings in the Varlo gallery are oil paintings. All oil paintings are fragile. No fragile item is allowed outside the vault. Dusk over Teyra is a painting in the Varlo gallery. Morning Bell is a bronze sculpture.,Dusk over Teyra is allowed outside the vault.,FALSE,"∀x (Painting(x) ∧ In(x, varloGallery) → OilPainting(x))
+∀x (OilPainting(x) → Fragile(x))
+∀x (Fragile(x) → ¬AllowedOutside(x, vault))
+Painting(duskOverTeyra) ∧ In(duskOverTeyra, varloGallery)
+BronzeSculpture(morningBell)","AllowedOutside(duskOverTeyra, vault)"
+P048,Odra is green. Yarra is green. Ilvy admires Odra. Ilvy admires Yarra. Ilvy visits Yarra. Odra follows Yarra. Gentle things are young. If someone admires Yarra then they are shiny. If someone is green then they visit Odra. Shiny things are green.,Ilvy does not visit Odra.,FALSE,"(""Odra"" ""is"" ""green"" ""+"")
+(""Yarra"" ""is"" ""green"" ""+"")
+(""Ilvy"" ""admires"" ""Odra"" ""+"")
+(""Ilvy"" ""admires"" ""Yarra"" ""+"")
+(""Ilvy"" ""visits"" ""Yarra"" ""+"")
+(""Odra"" ""follows"" ""Yarra"" ""+"")
+((""something"" ""is"" ""gentle"" ""+"")) -> (""something"" ""is"" ""young"" ""+"")
+((""someone"" ""admires"" ""Yarra"" ""+"")) -> (""someone"" ""is"" ""shiny"" ""+"")
+((""someone"" ""is"" ""green"" ""+"")) -> (""someone"" ""visits"" ""Odra"" ""+"")
+((""something"" ""is"" ""shiny"" ""+"")) -> (""something"" ""is"" ""green"" ""+"")","(""Ilvy"" ""visits"" ""Odra"" ""-"")"
+P049,"We know that Vapo causes Lerk, Kelp causes Lerk, Vapo causes Tamp, and Lerk and Kelp together cause Blim. Nothing else causes any of these events. We observed Vapo. Kelp did not occur.",Would Blim occur if not Vapo instead of Vapo?,FALSE,"Lerk = Vapo OR Kelp
+Tamp = Vapo
+Blim = Lerk AND Kelp
+Evidence: Vapo = 1, Kelp = 0",Blim_{Vapo=0} = 1 ?
+P050,"We know that Ziklo causes Quor, Fesh causes Quor, Ziklo causes Drav, Fesh causes Drav, Quor causes Tamp, and Tamp causes Blim. Nothing else causes any of these events. We observed Fesh and Ziklo.",Would Blim occur if not Fesh instead of Fesh?,TRUE,"Quor = Ziklo OR Fesh
+Drav = Ziklo OR Fesh
+Tamp = Quor
+Blim = Tamp
+Evidence: Fesh = 1, Ziklo = 1",Blim_{Fesh=0} = 1 ?
+P051,"No glassblowers are certified tide-pilots. All members of the Harbor Guild are certified tide-pilots. All lampwrights are glassblowers. All wick-cutters are lampwrights. If Toma Vell is either a member of the Harbor Guild or a glassblower, but not both, then Toma Vell is a certified tide-pilot.",Toma Vell is a wick-cutter.,FALSE,"¬(∃x (Glassblower(x) ∧ TidePilot(x)))
+∀x (HarborGuild(x) → TidePilot(x))
+∀x (Lampwright(x) → Glassblower(x))
+∀x (WickCutter(x) → Lampwright(x))
+(HarborGuild(tomaVell) ⊕ Glassblower(tomaVell)) → TidePilot(tomaVell)",WickCutter(tomaVell)
+P052,Brellow is a hamlet located in the district of Ost-Varn. Ost-Varn is a coastal district. No market towns are hamlets. One hamlet in Ost-Varn has exactly 212 residents.,Brellow is a market town.,FALSE,"Hamlet(brellow) ∧ District(ostVarn) ∧ LocatedIn(brellow, ostVarn)
+District(ostVarn) ∧ Coastal(ostVarn)
+∀x (MarketTown(x) → ¬Hamlet(x))
+∃x (Has212Residents(x) ∧ Hamlet(x) ∧ LocatedIn(x, ostVarn))",MarketTown(brellow)
+P053,"Everyone either rides a bicycle to work or drives a van to work (or both). Everyone who drives a van to work starts work before sunrise. Everyone who drives a van to work must renew a road permit every year. Everyone who starts work before sunrise skips breakfast. Everyone who skips breakfast is not well-rested. Nell either both starts work before sunrise and is well-rested, or neither starts work before sunrise nor is well-rested.","If Nell renews a road permit every year or rides a bicycle to work (or both), then Nell both renews a road permit every year and drives a van to work.",FALSE,"∀x (Bicycle(x) ∨ Van(x))
+∀x (Van(x) → BeforeSunrise(x))
+∀x (Van(x) → RoadPermit(x))
+∀x (BeforeSunrise(x) → SkipsBreakfast(x))
+∀x (SkipsBreakfast(x) → ¬WellRested(x))
+(BeforeSunrise(nell) ∧ WellRested(nell)) ⊕ (¬BeforeSunrise(nell) ∧ ¬WellRested(nell))",(RoadPermit(nell) ∨ Bicycle(nell)) → (RoadPermit(nell) ∧ Van(nell))
+P054,"No chess grandmasters are impatient. All members of the Kirov Circle are chess grandmasters. All finalists of the Amber Cup are members of the Kirov Circle. All Amber Cup champions are finalists of the Amber Cup. Ilsa is either both a member of the Kirov Circle and impatient, or neither a member of the Kirov Circle nor impatient.",Ilsa is an Amber Cup champion.,FALSE,"∀x (Grandmaster(x) → ¬Impatient(x))
+∀x (KirovMember(x) → Grandmaster(x))
+∀x (AmberFinalist(x) → KirovMember(x))
+∀x (AmberChampion(x) → AmberFinalist(x))
+¬(KirovMember(ilsa) ⊕ Impatient(ilsa))",AmberChampion(ilsa)
+P055,"All lanterns are trade goods. No trade goods are flawless. All brass lanterns are lanterns. All signal lanterns are brass lanterns. If the Orrin piece is a lantern, then the Orrin piece is flawless and a brass lantern.",The Orrin piece is not a signal lantern.,TRUE,"∀x (Lantern(x) → TradeGood(x))
+∀x (TradeGood(x) → ¬Flawless(x))
+∀x (BrassLantern(x) → Lantern(x))
+∀x (SignalLantern(x) → BrassLantern(x))
+Lantern(orrinPiece) → Flawless(orrinPiece) ∧ BrassLantern(orrinPiece)",¬SignalLantern(orrinPiece)
+P056,Tessaly Works has a workshop in Corvenia. Tessaly Works has a workshop in Dalmor. Corvenia and Dalmor are different regions. Any firm that has workshops in two different regions is a multi-regional firm. Tessaly Works makes clock parts.,Tessaly Works is a multi-regional firm.,TRUE,"WorkshopIn(tessalyWorks, corvenia)
+WorkshopIn(tessalyWorks, dalmor)
+¬SameRegion(corvenia, dalmor)
+∀x ∀y ∀z (WorkshopIn(x, y) ∧ WorkshopIn(x, z) ∧ ¬SameRegion(y, z) → MultiRegional(x))
+MakesClockParts(tessalyWorks)",MultiRegional(tessalyWorks)
+P057,"If a play is written by a comedy troupe, then the genre of the play is comedy. If a troupe writes a play that wins a prize, then the troupe wins that prize. ""The Salt Lantern"" is a play by the Wren Street Players. The Wren Street Players are a comedy troupe from Halvard. The scene ""Ladder Trouble"" is in ""The Salt Lantern"". ""The Salt Lantern"" won the Golden Mask prize. A scene in ""The Salt Lantern"" was used in a radio show.","The genre of ""The Salt Lantern"" is comedy.",TRUE,"∀x ∀y ∀z (PlayByTroupe(x, y) ∧ ComedyTroupe(y, z) → Genre(x, comedy))
+∀x ∀y ∀z (PlayByTroupe(x, y) ∧ PlayPrize(x, z) → TroupePrize(y, z))
+PlayByTroupe(saltLantern, wrenStreetPlayers)
+ComedyTroupe(wrenStreetPlayers, halvard)
+SceneInPlay(ladderTrouble, saltLantern)
+PlayPrize(saltLantern, goldenMask)
+∃x (SceneOnRadio(x) ∧ SceneInPlay(x, saltLantern))","Genre(saltLantern, comedy)"
+P058,Oren Dask was born in Velmar City. Oren Dask lives in the Quill district. Oren Dask is a fencer. Some fencers are champions. People who were born in Velmar City and live in Velmar City are Velmarians. Everyone who lives in the Quill district lives in Velmar City.,Oren Dask does not live in Velmar City.,FALSE,"BornIn(orenDask, velmarCity)
+LivesIn(orenDask, quillDistrict)
+Fencer(orenDask)
+∃x (Fencer(x) ∧ Champion(x))
+∀x (BornIn(x, velmarCity) ∧ LivesIn(x, velmarCity) → Velmarian(x))
+∀x (LivesIn(x, quillDistrict) → LivesIn(x, velmarCity))","¬LivesIn(orenDask, velmarCity)"
+P059,"""Glass Orchard"" is a song, and it is either a ballad or a march, but not both. No march is about a legendary creature. ""Glass Orchard"" is about a creature called the Velkin. The Velkin is legendary.","The Velkin is either legendary or a creature, but not both.",FALSE,"Song(glassOrchard) ∧ (Ballad(glassOrchard) ⊕ March(glassOrchard))
+∀x ∀y (March(x) ∧ Legendary(y) ∧ Creature(y) → ¬About(x, y))
+About(glassOrchard, velkin) ∧ Creature(velkin)
+Legendary(velkin)",Legendary(velkin) ⊕ Creature(velkin)
+P060,"The Tarn reed is a sedge or a rush (or both). The Tarn reed is a species kept in the Ollowa collection, and the Ollowa collection is a herbarium collection. No rush is kept in the Ollowa collection.",There are no sedges kept in the Ollowa collection.,FALSE,"Sedge(tarnReed) ∨ Rush(tarnReed)
+Species(tarnReed) ∧ Collection(ollowa) ∧ In(tarnReed, ollowa)
+∀x (In(x, ollowa) ∧ Collection(ollowa) → ¬Rush(x))","¬∃x (Sedge(x) ∧ In(x, ollowa))"
+P061,"Arvel, Doran and Mestia are provinces of Calloway. Seln is the capital of Doran. The Copper Bridge is one of the main landmarks, and it is located in Seln. Some people who live in Arvel speak Old Tessic. If Ruma travels to Calloway, she will see some landmarks. Ruma speaks Old Tessic.",The Copper Bridge is located in the capital of Doran.,TRUE,"Province(arvel) ∧ Province(doran) ∧ Province(mestia)
+CapitalOf(seln, doran)
+Landmark(copperBridge) ∧ LocatedIn(copperBridge, seln)
+∃x (LiveIn(x, arvel) ∧ Speak(x, oldTessic))
+TravelTo(ruma, calloway) → ∃x (See(ruma, x) ∧ Landmark(x))
+Speak(ruma, oldTessic)","∃x (CapitalOf(x, doran) ∧ LocatedIn(copperBridge, x))"
+P062,No machine is a living thing. All clocks are machines. Every sparrow is a living thing. Everything sold at the Hollin fair is a clock. Pim is a sparrow or a living thing (or both).,Pim was sold at the Hollin fair.,FALSE,"∀x (Machine(x) → ¬Living(x))
+∀x (Clock(x) → Machine(x))
+∀x (Sparrow(x) → Living(x))
+∀x (SoldAtHollin(x) → Clock(x))
+Sparrow(pim) ∨ Living(pim)",SoldAtHollin(pim)
+P063,Anyone who trains for a regatta event and sails in the Kessel Regatta is a regatta sailor. Fenna Rhee trains for a regatta event. Fenna Rhee sailed in the Kessel Regatta. Fenna Rhee is a lightweight-class sailor. No lightweight-class sailor is a heavyweight-class sailor.,Fenna Rhee is a heavyweight-class sailor.,FALSE,"∀x (TrainsForRegatta(x) ∧ SailsInKessel(x) → RegattaSailor(x))
+TrainsForRegatta(fennaRhee)
+SailsInKessel(fennaRhee)
+Lightweight(fennaRhee)
+∀x (Lightweight(x) → ¬Heavyweight(x))",Heavyweight(fennaRhee)
+P064,"The Kestrel Owls are a northern team. The Kestrel Owls are part of the Hightide League. If a team is part of a league, then it has joined that league. The Kestrel Owls and the Varn Foxes are different teams. For any two different teams, either the first wins against the second or the second wins against the first, but not both. The Varn Foxes won against the Kestrel Owls.",At least one northern team has joined the Hightide League.,TRUE,"Northern(kestrelOwls)
+PartOf(kestrelOwls, hightideLeague)
+∀x ∀y (PartOf(x, y) → Joined(x, y))
+Different(varnFoxes, kestrelOwls) ∧ Different(kestrelOwls, varnFoxes)
+∀x ∀y (Different(x, y) → WonAgainst(x, y) ⊕ WonAgainst(y, x))
+WonAgainst(varnFoxes, kestrelOwls)","∃x (Northern(x) ∧ Joined(x, hightideLeague))"
+P065,"Every dish is either baked by Chef Orla or fried by Chef Orla (or both). Every dish baked by Chef Orla comes from the old guild recipe book. Every dish fried by Chef Orla uses Tamsin oil. Every dish that uses Tamsin oil is spicy. Every spicy dish must be served with bread. If the Ember pie is baked by Chef Orla or comes from the old guild recipe book (or both), then the Ember pie is either baked by Chef Orla or comes from the old guild recipe book, but not both.","The Ember pie does not use Tamsin oil, and the Ember pie must be served with bread.",FALSE,"∀x (OrlaBaked(x) ∨ OrlaFried(x))
+∀x (OrlaBaked(x) → GuildBook(x))
+∀x (OrlaFried(x) → TamsinOil(x))
+∀x (TamsinOil(x) → Spicy(x))
+∀x (Spicy(x) → NeedsBread(x))
+OrlaBaked(emberPie) ∨ GuildBook(emberPie) → OrlaBaked(emberPie) ⊕ GuildBook(emberPie)",¬TamsinOil(emberPie) ∧ NeedsBread(emberPie)
+P066,"No metal is a gas. Everything that is neon is a gas. If something is iron, then it is a metal. All cast iron is iron. If sample Q9 is either neon or iron, but not both, then sample Q9 is not a metal.",Sample Q9 is not iron.,TRUE,"∀x (Metal(x) → ¬Gas(x))
+∀x (Neon(x) → Gas(x))
+∀x (Iron(x) → Metal(x))
+∀x (CastIron(x) → Iron(x))
+Neon(q9) ⊕ Iron(q9) → ¬Metal(q9)",¬Iron(q9)
+P067,Some night guards at the Ferro museum are not cheerful. All night guards at the Ferro museum are key holders. All key holders are alarm-trained. Everyone who is alarm-trained works inside the Ferro museum. Dela does not work inside the Ferro museum.,Dela is cheerful and is a night guard at the Ferro museum.,FALSE,"∃x (NightGuard(x) ∧ ¬Cheerful(x))
+∀x (NightGuard(x) → KeyHolder(x))
+∀x (KeyHolder(x) → AlarmTrained(x))
+∀x (AlarmTrained(x) → WorksInside(x))
+¬WorksInside(dela)",Cheerful(dela) ∧ NightGuard(dela)
+P068,"Everyone who follows a strict daily plan dislikes surprises. Everyone who wears a grey uniform every day follows a strict daily plan. Everyone who avoids shopping wears a grey uniform every day. Every retired lighthouse keeper dislikes surprises. Nobody who is restless dislikes surprises. If it is not the case that Joss both wears a grey uniform every day and is restless, then Joss either follows a strict daily plan or dislikes surprises, but not both.","If it is not the case that Joss is both a retired lighthouse keeper and someone who avoids shopping, then Joss avoids shopping.",FALSE,"∀x (StrictPlan(x) → DislikesSurprises(x))
+∀x (GreyUniform(x) → StrictPlan(x))
+∀x (AvoidsShopping(x) → GreyUniform(x))
+∀x (RetiredKeeper(x) → DislikesSurprises(x))
+∀x (Restless(x) → ¬DislikesSurprises(x))
+¬(GreyUniform(joss) ∧ Restless(joss)) → (StrictPlan(joss) ⊕ DislikesSurprises(joss))",¬(RetiredKeeper(joss) ∧ AvoidsShopping(joss)) → AvoidsShopping(joss)
+P069,"Morrow is a tram stop located in Quellshire. Morrow precedes Ashby. Calden precedes Morrow. Quellshire is located in the Northern Territories. Calden is on the Blue Line. If a stop is on a line, and another stop precedes it or is preceded by it, then that other stop is on the same line. Morrow is served by night trams. If A is located in B and B is located in C, then A is located in C. If A precedes B and B precedes C, then A precedes C.",Ashby is on the Blue Line.,TRUE,"TramStop(morrow) ∧ Locate(morrow, quellshire)
+Precede(morrow, ashby)
+Precede(calden, morrow)
+Locate(quellshire, northernTerritories)
+Situate(calden, blueLine)
+∀x ∀y ∀z ((Situate(x, z) ∧ (Precede(x, y) ∨ Precede(y, x))) → Situate(y, z))
+Serve(nightTrams, morrow)
+∀x ∀y ∀z ((Locate(x, y) ∧ Locate(y, z)) → Locate(x, z))
+∀x ∀y ∀z ((Precede(x, y) ∧ Precede(y, z)) → Precede(x, z))","Situate(ashby, blueLine)"
+P070,"Before publishing ""The Tin Harbour"", the author Mael Corrin had written at least one Ostland bestseller. ""The Tin Harbour"" is a book that was popular across the southern isles. ""The Tin Harbour"" is a book that was not an Ostland bestseller. A book is ranked outside the Ostland top list if and only if it is not an Ostland bestseller.","""The Tin Harbour"" was ranked outside the Ostland top list.",TRUE,"∃x (Book(x) ∧ By(x, maelCorrin) ∧ OstlandBestseller(x))
+Book(tinHarbour) ∧ PopularSouth(tinHarbour)
+Book(tinHarbour) ∧ ¬OstlandBestseller(tinHarbour)
+∀x (OutsideTopList(x) ↔ ¬OstlandBestseller(x))",OutsideTopList(tinHarbour)
+P071,"Every archer has a left hand and a right hand. An archer who can draw the bow skillfully with the left hand and with the right hand is a master archer. If an archer has hit many targets with the left hand, then that archer can draw the bow skillfully with the left hand. If an archer has hit many targets with the right hand, then that archer can draw the bow skillfully with the right hand. Bren Ota is an archer. Bren Ota can draw the bow skillfully with the right hand. Bren Ota has hit many targets with the left hand.",Bren Ota is not a master archer.,FALSE,"∀x (Archer(x) → HasLeftHand(x) ∧ HasRightHand(x))
+∀x (Archer(x) ∧ Skillful(x, left) ∧ Skillful(x, right) → MasterArcher(x))
+∀x (Archer(x) ∧ ManyHits(x, left) → Skillful(x, left))
+∀x (Archer(x) ∧ ManyHits(x, right) → Skillful(x, right))
+Archer(brenOta)
+Skillful(brenOta, right)
+ManyHits(brenOta, left)",¬MasterArcher(brenOta)
+P072,"Kel, Mor and Zan are ranked guards. If a ranked guard is exactly one grade above another ranked guard, then the first outranks the second. If one guard outranks another, then the second does not outrank the first. Mor is exactly one grade above Kel. Zan is exactly one grade above Mor. Ove is trusted. If someone is trusted, then anyone sponsored by them is also trusted. Zan is sponsored by Lia. Lia is sponsored by Ove.",Kel outranks Mor.,FALSE,"Ranked(kel) ∧ Ranked(mor) ∧ Ranked(zan)
+∀x ∀y (Ranked(x) ∧ Ranked(y) ∧ OneGradeAbove(x, y) → Outranks(x, y))
+∀x ∀y (Outranks(x, y) → ¬Outranks(y, x))
+OneGradeAbove(mor, kel)
+OneGradeAbove(zan, mor)
+Trusted(ove)
+∀x ∀y ((Trusted(x) ∧ SponsoredBy(y, x)) → Trusted(y))
+SponsoredBy(zan, lia)
+SponsoredBy(lia, ove)","Outranks(kel, mor)"
+P073,"Anyone who visits the bathhouse every week is not a coin-hoarder. Everyone is either a coin-hoarder or a big spender, but not both. Every big spender loves fine silk. Everyone who loves fine silk enjoys browsing the bazaar. If Pirro is not a coin-hoarder, then Pirro does not love fine silk. If exactly one of the following is true: (a) Pirro loves fine silk, (b) if Pirro does not love fine silk then Pirro is a coin-hoarder, then Pirro is a big spender.","Pirro enjoys browsing the bazaar, or, if Pirro does not enjoy browsing the bazaar, then Pirro visits the bathhouse every week.",TRUE,"∀x (Bathhouse(x) → ¬CoinHoarder(x))
+∀x (CoinHoarder(x) ⊕ BigSpender(x))
+∀x (BigSpender(x) → LovesSilk(x))
+∀x (LovesSilk(x) → EnjoysBazaar(x))
+¬CoinHoarder(pirro) → ¬LovesSilk(pirro)
+(LovesSilk(pirro) ⊕ (¬LovesSilk(pirro) → CoinHoarder(pirro))) → BigSpender(pirro)",EnjoysBazaar(pirro) ∨ (¬EnjoysBazaar(pirro) → Bathhouse(pirro))
+P074,"Hadria Lune was a sculptor, a poet, and a mapmaker. Hadria Lune was from Varenna. Every poet is good at rhyme or good at meter (or both). Everyone from Varenna speaks Old Varrish.",There is no mapmaker who speaks Old Varrish.,FALSE,"Sculptor(hadriaLune) ∧ Poet(hadriaLune) ∧ Mapmaker(hadriaLune)
+FromVarenna(hadriaLune)
+∀x (Poet(x) → GoodAt(x, rhyme) ∨ GoodAt(x, meter))
+∀x (FromVarenna(x) → Speak(x, oldVarrish))","¬∃x (Mapmaker(x) ∧ Speak(x, oldVarrish))"
+P075,"Everything that is idle is unreliable. Nothing that is unreliable is approved for flight. Everything that is rusted is idle. Some generators are rusted. Unit K-40 is not approved for flight, or Unit K-40 is rusted (or both).","If Unit K-40 is either a generator or unreliable, but not both, then Unit K-40 is not approved for flight.",TRUE,"∀x (Idle(x) → Unreliable(x))
+∀x (Unreliable(x) → ¬FlightApproved(x))
+∀x (Rusted(x) → Idle(x))
+∃x (Generator(x) ∧ Rusted(x))
+¬FlightApproved(k40) ∨ Rusted(k40)",(Generator(k40) ⊕ Unreliable(k40)) → ¬FlightApproved(k40)
+P076,The marsh hopper is a frog found in the Lowfen region. Herons like hunting all frogs. The marsh hopper lives in the Sallow wetlands. Anything found in the Lowfen region that lives in the Sallow wetlands lives in a damp place. The marsh hopper is larger than the reed frog.,The marsh hopper does not live in a damp place.,FALSE,"Frog(marshHopper) ∧ Found(marshHopper, lowfen)
+∀x (Frog(x) → HeronsHunt(x))
+Live(marshHopper, sallowWetlands)
+∀x (Found(x, lowfen) ∧ Live(x, sallowWetlands) → LivesInDampPlace(x))
+Larger(marshHopper, reedFrog)",¬LivesInDampPlace(marshHopper)
+P077,No house in Pell Hollow is tall. All houses rented by the Orchard Trust are in Pell Hollow. All houses in Kesp Heights are tall. All houses owned by the Marrin family are in Kesp Heights. All houses with the Marrin crest are owned by the Marrin family. House 7 is rented by the Orchard Trust. House 9 has the Marrin crest.,House 7 is not tall.,TRUE,"∀x (InPellHollow(x) → ¬Tall(x))
+∀x (OrchardTrust(x) → InPellHollow(x))
+∀x (InKespHeights(x) → Tall(x))
+∀x (MarrinOwned(x) → InKespHeights(x))
+∀x (MarrinCrest(x) → MarrinOwned(x))
+OrchardTrust(house7)
+MarrinCrest(house9)",¬Tall(house7)
+P078,"Tolver Reach is a large cluster of underwater coral formations in the Amris Gulf. Port Kaelin is north of Tolver Reach. If place A is north of place B, then place B is south of place A.",Port Kaelin is not north of any underwater coral formation.,FALSE,"LargeCluster(tolverReach) ∧ Underwater(tolverReach) ∧ CoralFormation(tolverReach) ∧ In(tolverReach, amrisGulf)
+NorthOf(portKaelin, tolverReach)
+∀x ∀y (NorthOf(x, y) → SouthOf(y, x))","¬∃x (Underwater(x) ∧ CoralFormation(x) ∧ NorthOf(portKaelin, x))"
+P079,"Everyone who holds a deep-sea diving permit is enrolled full time at the Coral Academy. Nobody enrolled full time at the Coral Academy can hold a second job. Everyone who wants to dive in the Southern Trench holds a deep-sea diving permit. All licensed boat captains hold a second job. If Rhen does not want to dive in the Southern Trench, then Rhen is enrolled full time at the Coral Academy.",Rhen is a licensed boat captain.,FALSE,"∀x (DivingPermit(x) → FullTimeAcademy(x))
+∀x (FullTimeAcademy(x) → ¬SecondJob(x))
+∀x (WantsTrench(x) → DivingPermit(x))
+∀x (BoatCaptain(x) → SecondJob(x))
+¬WantsTrench(rhen) → FullTimeAcademy(rhen)",BoatCaptain(rhen)
+P080,Lio Varne is a potter. Lio Varne made the Blue Tide vase. Every piece made by a potter is a ceramic piece. No potter is a glassblower.,Lio Varne is a glassblower.,FALSE,"Potter(lioVarne)
+Made(lioVarne, blueTideVase)
+∀x ∀y (Potter(x) ∧ Made(x, y) → Ceramic(y))
+∀x (Potter(x) → ¬Glassblower(x))",Glassblower(lioVarne)
+P081,Wenna Thorle was a weaver and a dyer. Wenna Thorle was born in Little Ost. Wenna Thorle was married to Corran Thorle. Everyone born in Little Ost is a citizen of Mardova.,Wenna Thorle was a citizen of Mardova.,TRUE,"Weaver(wennaThorle) ∧ Dyer(wennaThorle)
+BornIn(wennaThorle, littleOst)
+MarriedTo(wennaThorle, corranThorle)
+∀x (BornIn(x, littleOst) → MardovaCitizen(x))",MardovaCitizen(wennaThorle)
+P082,All carts belonging to the bakery are linked to the central tracker. All carts belonging to staff are linked to the charging dock. All carts linked to the central tracker are monitored by the supervisors. All carts linked to the charging dock are easy to steer. Cart C4 belongs to staff.,Cart C4 is easy to steer.,TRUE,"∀x (BakeryCart(x) → CentralTracker(x))
+∀x (StaffCart(x) → ChargingDock(x))
+∀x (CentralTracker(x) → Monitored(x))
+∀x (ChargingDock(x) → EasyToSteer(x))
+StaffCart(cartC4)",EasyToSteer(cartC4)
+P083,"Every one of the Five Meres is Brannmere, Coldmere, Hollmere, Ravenmere or Stillmere. Ravenmere has some major port that is in Ashfold, Brisk, Corran or Dunvale. Ashfold, Brisk, Corran and Dunvale are provinces of Tellar. Elm is a province of Vossia. Hollmere has a major port in Elm. Every province is in its country. Tellar is in the Western Reach. All of the Five Meres formed at the end of the Great Thaw.",Ravenmere has a major port.,TRUE,"∀x (Mere(x) → Brannmere(x) ∨ Coldmere(x) ∨ Hollmere(x) ∨ Ravenmere(x) ∨ Stillmere(x))
+∃x ∃y (Ravenmere(y) ∧ MajorPortOf(x, y) ∧ (In(x, ashfold) ∨ In(x, brisk) ∨ In(x, corran) ∨ In(x, dunvale)))
+ProvinceOf(ashfold, tellar) ∧ ProvinceOf(brisk, tellar) ∧ ProvinceOf(corran, tellar) ∧ ProvinceOf(dunvale, tellar)
+ProvinceOf(elm, vossia)
+∃x ∃y (Hollmere(y) ∧ MajorPortOf(x, y) ∧ In(x, elm))
+∀x ∀y (ProvinceOf(x, y) → In(x, y))
+In(tellar, westernReach)
+∀x (Mere(x) → FormedAtEndOf(x, greatThaw))","∃x ∃y (Ravenmere(y) ∧ MajorPortOf(x, y))"
+P084,"Every apprentice at the Morrow forge keeps a hound. Some residents of Calder Lane are apprentices at the Morrow forge. Everyone who keeps a hound owns a cart. Nobody who owns a cart owns a horse. Ysolde either owns both a horse and a cart, or owns neither a horse nor a cart.","If Ysolde is an apprentice at the Morrow forge, then Ysolde is not a resident of Calder Lane.",TRUE,"∀x (Apprentice(x) → Hound(x))
+∃x (CalderLane(x) ∧ Apprentice(x))
+∀x (Hound(x) → Cart(x))
+∀x (Cart(x) → ¬Horse(x))
+¬(Horse(ysolde) ⊕ Cart(ysolde))",Apprentice(ysolde) → ¬CalderLane(ysolde)
+P085,"Tavrin is an island in the Selmar Archipelago. In the spring of 812, a great storm struck Tavrin. Ships were lost in the great storm that struck Tavrin in the spring of 812.","In the spring of 812, at least one great storm struck a place in the Selmar Archipelago.",TRUE,"Island(tavrin) ∧ In(tavrin, selmar)
+∃x (GreatStorm(x) ∧ StruckIn(x, spring812) ∧ Struck(x, tavrin))
+∃x (GreatStorm(x) ∧ StruckIn(x, spring812) ∧ Struck(x, tavrin) ∧ ShipsLost(x))","∃x ∃y (GreatStorm(x) ∧ StruckIn(x, spring812) ∧ Struck(x, y) ∧ In(y, selmar))"
+P086,"Tellets are a kind of hook from the copper age. Tellets are found in the eastern valleys and are cast in clay moulds. Mira Okun is a historian who popularized the term ""tellet"". A tallet is not a hook, but rather a fishing spear.",No historian has popularized anything.,FALSE,"∀x (Tellet(x) → From(x, copperAge) ∧ Hook(x))
+∀x ∀y (Tellet(x) ∧ ClayMould(y) → FoundIn(x, easternValleys) ∧ CastIn(x, y))
+Historian(miraOkun) ∧ Popularized(miraOkun, termTellet)
+∀x (Tallet(x) → ¬Hook(x) ∧ FishingSpear(x))","∀x ∀y (Historian(x) → ¬Popularized(x, y))"
+P087,"Every fault that requires a full inspection requires a machine shutdown. All rare faults require a full inspection. No minor fault requires a machine shutdown. All gear faults are rare faults. All cracked-gear faults are gear faults. If fault F17 is either both a gear fault and a cracked-gear fault, or neither a gear fault nor a cracked-gear fault, then fault F17 is a cracked-gear fault.","Fault F17 is either a rare fault or a minor fault, but not both.",TRUE,"∀x (FullInspection(x) → Shutdown(x))
+∀x (RareFault(x) → FullInspection(x))
+∀x (MinorFault(x) → ¬Shutdown(x))
+∀x (GearFault(x) → RareFault(x))
+∀x (CrackedGear(x) → GearFault(x))
+¬(GearFault(f17) ⊕ CrackedGear(f17)) → CrackedGear(f17)",RareFault(f17) ⊕ MinorFault(f17)
+P088,"The town of Brisa is located in the province of Halm. The province of Halm is located in the Kingdom of Ostrel. The Kingdom of Ostrel is located in the eastern half of the continent. Brisa is a walled town. If place A is located in place B and place B is located in place C, then place A is located in place C.",Some walled town is located in the eastern half of the continent.,TRUE,"Locate(brisa, halm)
+Locate(halm, ostrel)
+Locate(ostrel, easternHalf)
+Walled(brisa)
+∀x ∀y ∀z ((Locate(x, y) ∧ Locate(y, z)) → Locate(x, z))","∃x (Walled(x) ∧ Locate(x, easternHalf))"
+P089,"If two debate teams have the same score at the end of the main rounds of a Grand Cup final, they must hold a bonus round. If two debate teams have the same score at the end of both the main rounds and the bonus round of a Grand Cup final, they must hold a sudden-death round. The Owls and the Ravens are debate teams, and they had the same score at the end of the main rounds of the 812 Grand Cup final. The Owls and the Ravens are debate teams, and they had the same score at the end of the bonus round of the 812 Grand Cup final.",The Owls and the Ravens had to hold a sudden-death round in the 812 Grand Cup final.,TRUE,"∀x ∀y (DebateTeam(x) ∧ DebateTeam(y) ∧ SameScore(x, y) ∧ During(mainRounds) → BonusRound(x, y))
+∀x ∀y (DebateTeam(x) ∧ DebateTeam(y) ∧ SameScore(x, y) ∧ During(mainRounds) ∧ During(bonusRound) → SuddenDeath(x, y))
+DebateTeam(owls) ∧ DebateTeam(ravens) ∧ SameScore(owls, ravens) ∧ During(mainRounds)
+DebateTeam(owls) ∧ DebateTeam(ravens) ∧ SameScore(owls, ravens) ∧ During(bonusRound)","SuddenDeath(owls, ravens)"
+P090,"No warehouse in Dunmore is heated. All warehouses leased by the Corvo Company are in Dunmore. All warehouses in Ribbon Quay are heated. All warehouses owned by Halvex are in Ribbon Quay. All warehouses with the Halvex seal are owned by Halvex. Warehouse 3 is either in both Dunmore and Ribbon Quay, or in neither Dunmore nor Ribbon Quay. Warehouse 5 has the Halvex seal and is in Ribbon Quay.",Warehouse 3 has the Halvex seal or is leased by the Corvo Company (or both).,FALSE,"∀x (Dunmore(x) → ¬Heated(x))
+∀x (CorvoLeased(x) → Dunmore(x))
+∀x (RibbonQuay(x) → Heated(x))
+∀x (HalvexOwned(x) → RibbonQuay(x))
+∀x (HalvexSeal(x) → HalvexOwned(x))
+¬(Dunmore(warehouse3) ⊕ RibbonQuay(warehouse3))
+HalvexSeal(warehouse5) ∧ RibbonQuay(warehouse5)",HalvexSeal(warehouse3) ∨ CorvoLeased(warehouse3)
+P091,Some lamps in the reading room are made by Dellow. All lamps in the reading room are on discount. Every lamp on discount uses a warm bulb. No lamp that uses a warm bulb has a dimmer. Lamp L22 is in the reading room.,Lamp L22 does not have a dimmer.,TRUE,"∃x (ReadingRoom(x) ∧ Dellow(x))
+∀x (ReadingRoom(x) → Discount(x))
+∀x (Discount(x) → WarmBulb(x))
+∀x (WarmBulb(x) → ¬Dimmer(x))
+ReadingRoom(lampL22)",¬Dimmer(lampL22)
+P092,Every climber can tie a bowline knot. Everyone who scales cliffs without ropes is a climber. Every member of the Ridge Club scales cliffs without ropes. All guides of the North Pass are members of the Ridge Club. Tobin is a member of the Ridge Club or a climber (or both).,"If Tobin either can tie a bowline knot or is a climber, but not both, then Tobin is a guide of the North Pass.",TRUE,"∀x (Climber(x) → TiesBowline(x))
+∀x (ScalesWithoutRopes(x) → Climber(x))
+∀x (RidgeClub(x) → ScalesWithoutRopes(x))
+∀x (NorthPassGuide(x) → RidgeClub(x))
+RidgeClub(tobin) ∨ Climber(tobin)",(TiesBowline(tobin) ⊕ Climber(tobin)) → NorthPassGuide(tobin)
+P093,"Every item is northern or southern (or both). No southern item is fragile. Every item is fragile or sturdy (or both). No crate is empty. Every sturdy item is a crate. If box B2 is a crate or is empty (or both), then box B2 is northern or empty (or both).","If box B2 is northern or empty (or both), then box B2 is empty and sturdy.",FALSE,"∀x (Northern(x) ∨ Southern(x))
+∀x (Southern(x) → ¬Fragile(x))
+∀x (Fragile(x) ∨ Sturdy(x))
+∀x (Crate(x) → ¬Empty(x))
+∀x (Sturdy(x) → Crate(x))
+Crate(boxB2) ∨ Empty(boxB2) → Northern(boxB2) ∨ Empty(boxB2)",(Northern(boxB2) ∨ Empty(boxB2)) → (Empty(boxB2) ∧ Sturdy(boxB2))
+P094,"Every kind of Morrel moss is a cushion moss and belongs to the Velt family. Every kind of Morrel moss is widespread over the northern coast, the river plains, the high moors, and the islands. Some kinds of Morrel moss are native to the Grell valley. Every kind of red Morrel moss is used as a dye.",Every kind of Morrel moss is widespread over the high moors and the river plains.,TRUE,"∀x (MorrelMoss(x) → CushionMoss(x) ∧ BelongTo(x, veltFamily))
+∀x (MorrelMoss(x) → WidespreadOver(x, northernCoast) ∧ WidespreadOver(x, riverPlains) ∧ WidespreadOver(x, highMoors) ∧ WidespreadOver(x, islands))
+∃x (MorrelMoss(x) ∧ NativeTo(x, grellValley))
+∀x (RedMorrelMoss(x) → UsedAsDye(x))","∀x (MorrelMoss(x) → WidespreadOver(x, highMoors) ∧ WidespreadOver(x, riverPlains))"
+P095,"Soil science studies how minerals help roots grow. Soil scientists have often ranked minerals by their Kell index. Every Kell index is a rough guide, not a precise measurement.",No Kell index is a precise measurement.,TRUE,"StudiesMineralsAndRoots(soilScience)
+RankByKell(soilScientists, minerals)
+∀x (KellIndex(x) → RoughGuide(x) ∧ ¬PreciseMeasurement(x))",∀x (KellIndex(x) → ¬PreciseMeasurement(x))
+P096,A translation tool that only uses words from the source text is always accurate. Every word-copying tool is a translation tool. Every word-copying tool only uses words from the source text.,Some word-copying tool is not always accurate.,FALSE,"∀x (Tool(x) ∧ Translation(x) ∧ OnlySourceWords(x) → Accurate(x))
+∀x (Tool(x) ∧ WordCopying(x) → Translation(x))
+∀x (Tool(x) ∧ WordCopying(x) → OnlySourceWords(x))",∃x (Tool(x) ∧ WordCopying(x) ∧ ¬Accurate(x))
+P097,"If something needs a large crew, then it sails long routes. Everything that carries heavy cargo needs a large crew. If something is a cargo hauler, then it carries heavy cargo. All ore barges are cargo haulers. The Gull is a cargo hauler.",The Gull is neither an ore barge nor something that sails long routes.,FALSE,"∀x (LargeCrew(x) → LongRoutes(x))
+∀x (HeavyCargo(x) → LargeCrew(x))
+∀x (CargoHauler(x) → HeavyCargo(x))
+∀x (OreBarge(x) → CargoHauler(x))
+CargoHauler(gull)",¬OreBarge(gull) ∧ ¬LongRoutes(gull)
+P098,Kira Dell plays the fiddle and the drum. The only style of music Kira Dell plays is folk. Kira Dell played in the band Copper Wind.,A member of Copper Wind plays the drum.,TRUE,"Play(kiraDell, fiddle) ∧ Play(kiraDell, drum)
+OnlyStyle(kiraDell, folk)
+Band(kiraDell, copperWind)","∃x (Band(x, copperWind) ∧ Play(x, drum))"
+P099,"In the Vell chess league, a club ranks higher than another club if it earns more points. If two clubs in the Vell chess league earn the same points, the club that earns more points in the matches between the two clubs ranks higher. Rook Hall and Pawn Street are both clubs in the Vell chess league. This season, Rook Hall earned 54 points and Pawn Street earned 41 points. This season, Rook Hall and Pawn Street each earned 2 points in the matches between them.","This season, Rook Hall ranks higher than Pawn Street.",TRUE,"∀x ∀y (VellClub(x) ∧ VellClub(y) ∧ MorePoints(x, y) → RanksHigher(x, y))
+∀x ∀y (VellClub(x) ∧ VellClub(y) ∧ ¬MorePoints(x, y) ∧ ¬MorePoints(y, x) ∧ MorePointsBetween(x, y) → RanksHigher(x, y))
+VellClub(rookHall) ∧ VellClub(pawnStreet)
+MorePoints(rookHall, pawnStreet)
+¬MorePointsBetween(rookHall, pawnStreet) ∧ ¬MorePointsBetween(pawnStreet, rookHall)","RanksHigher(rookHall, pawnStreet)"
+P100,"Every hand-sewn quilt uses cotton thread. Every patchwork quilt is made on the Vossel loom. Everything made on the Vossel loom is machine-washable. The Ember quilt uses cotton thread or is hand-sewn (or both). If the Ember quilt is not machine-washable, then the Ember quilt uses cotton thread and is a patchwork quilt.","The Ember quilt either uses cotton thread or is machine-washable, but not both.",FALSE,"∀x (HandSewn(x) → CottonThread(x))
+∀x (Patchwork(x) → VosselLoom(x))
+∀x (VosselLoom(x) → MachineWashable(x))
+CottonThread(emberQuilt) ∨ HandSewn(emberQuilt)
+¬MachineWashable(emberQuilt) → CottonThread(emberQuilt) ∧ Patchwork(emberQuilt)",CottonThread(emberQuilt) ⊕ MachineWashable(emberQuilt)
